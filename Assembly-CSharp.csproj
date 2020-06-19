@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Ball.cs" />
     <Compile Include="Assets\Scripts\Paddle.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>F:/GitHub_portfolio/6. BrickBreaking_Game/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

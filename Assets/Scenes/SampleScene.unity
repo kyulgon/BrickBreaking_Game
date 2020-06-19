@@ -6980,6 +6980,7 @@ GameObject:
   - component: {fileID: 265861984}
   - component: {fileID: 265861980}
   - component: {fileID: 265861983}
+  - component: {fileID: 265861985}
   m_Layer: 0
   m_Name: Ball2
   m_TagString: Ball
@@ -7107,6 +7108,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.53499997
+--- !u!114 &265861985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265861979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de64c3b39fee7ac4a849b9f53c922460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paddle: {fileID: 1884381765}
 --- !u!1 &268736772
 GameObject:
   m_ObjectHideFlags: 0
@@ -7914,6 +7928,7 @@ GameObject:
   - component: {fileID: 364218763}
   - component: {fileID: 364218759}
   - component: {fileID: 364218762}
+  - component: {fileID: 364218764}
   m_Layer: 0
   m_Name: Ball1
   m_TagString: Ball
@@ -8041,6 +8056,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.53499997
+--- !u!114 &364218764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364218758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de64c3b39fee7ac4a849b9f53c922460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paddle: {fileID: 1884381765}
 --- !u!1 &373881057
 GameObject:
   m_ObjectHideFlags: 0
@@ -8901,7 +8929,7 @@ GameObject:
   - component: {fileID: 432587660}
   - component: {fileID: 432587661}
   m_Layer: 0
-  m_Name: DeatZone
+  m_Name: DeathZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30013,7 +30041,7 @@ MonoBehaviour:
   - {fileID: 1249195322}
   - {fileID: 631835203}
   - {fileID: 511822358}
-  RaddleSr: {fileID: 1884381767}
+  PaddleSr: {fileID: 0}
   PaddleCol: {fileID: 1884381766}
   Magnet: {fileID: 1481283049}
   Gun: {fileID: 1366855748}
@@ -31245,6 +31273,7 @@ GameObject:
   - component: {fileID: 1972411102}
   - component: {fileID: 1972411098}
   - component: {fileID: 1972411101}
+  - component: {fileID: 1972411103}
   m_Layer: 0
   m_Name: Ball0
   m_TagString: Ball
@@ -31372,6 +31401,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.53499997
+--- !u!114 &1972411103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972411097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de64c3b39fee7ac4a849b9f53c922460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paddle: {fileID: 1884381765}
 --- !u!1 &1973644573
 GameObject:
   m_ObjectHideFlags: 0

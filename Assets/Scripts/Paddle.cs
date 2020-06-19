@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 public class Paddle : MonoBehaviour
@@ -33,7 +34,7 @@ public class Paddle : MonoBehaviour
     public SpriteRenderer[] BallSr;
     public Rigidbody2D[] BallRg;
     public GameObject[] Bullet;
-    public SpriteRenderer RaddleSr;
+    public SpriteRenderer PaddleSr;
     public BoxCollider2D PaddleCol;
     public GameObject Magnet;
     public GameObject Gun;
@@ -71,9 +72,16 @@ public class Paddle : MonoBehaviour
         else if (_stage != -1) stage = _stage;
         if (stage >= StageStr.Length) return;
 
-
+        Clear();
         BlockGenerator();
         StartCoroutine("BallReset");
+
+        // 점수 초기화
+        PaddleSr.enabled = true;
+        Life0.SetActive(true);
+        Life1.SetActive(true);
+        WinPanel.SetActive(false);
+        GameOverPanel.SetActive(false);
     }
 
     void BlockGenerator()
@@ -100,7 +108,14 @@ public class Paddle : MonoBehaviour
 
     IEnumerator BallReset()
     {
+        isStart = false;
+        combo = 0;
+        Ball[0].SetActive(true);
+        Ball[1].SetActive(false);
+        Ball[2].SetActive(false);
+
         BallAni[0].SetTrigger("Blink");
+        BallTr[0].position = new Vector2(paddleX, -3.55f);
 
         StopCoroutine("InfinityLoop");
         yield return new WaitForSeconds(0.7f);
@@ -131,4 +146,99 @@ public class Paddle : MonoBehaviour
         
 
     }
+
+    public IEnumerator BallCollisionEnter2D(Transform ThisBallTr, Rigidbody2D ThisBallRg, Ball ThisBallCs, GameObject Col, Transform ColTr, SpriteRenderer ColSr, Animator ColAni)
+    {
+        if (!isStart) yield break;
+
+        switch (Col.name)
+        {
+            case "Paddle":
+                ThisBallRg.velocity = Vector2.zero;
+                ThisBallRg.AddForce((ThisBallTr.position - transform.position).normalized * ballSpeed);
+                S_Paddle.Play();
+                combo = 0;
+                break;
+
+            case "DeathZone":
+                ThisBallTr.gameObject.SetActive(false);
+                BallCheck();
+                break;
+
+            case "HardBlock0":
+                Col.name = "HardBlock1";
+                ColSr.sprite = B[9];
+                S_HardBreak.Play();
+                break;
+
+            case "HardBlock1":
+                Col.name = "HardBlock2";
+                ColSr.sprite = B[10];
+                S_HardBreak.Play();
+                break;
+
+            case "HardBlock2":
+
+            case "Block":
+                BlockBreak(Col, ColTr, ColAni);
+                break;
+
+        }
+
+    }
+
+    void BlockBreak(GameObject Col, Transform ColTr, Animator ColAni)
+    {
+        // 아이템 생성
+
+        // 스코어 증가
+
+        // 벽돌 부서지는 애니메이션
+        ColAni.SetTrigger("Break");
+        S_Break.Play();
+        StartCoroutine(ActiveFalse(Col));
+
+        // 블럭 체크
+    }
+
+    IEnumerator ActiveFalse(GameObject Col)
+    {
+        yield return new WaitForSeconds(0.2f);
+        Col.SetActive(false);
+    }
+
+    void BallCheck()
+    {
+        int ballCount = 0;
+        foreach (GameObject OneBall in GameObject.FindGameObjectsWithTag("Ball")) ballCount++;
+
+        if (ballCount == 0)
+        {
+            if(Life1.activeSelf)
+            {
+                Life1.SetActive(false);
+                StartCoroutine("BallReset");
+                S_Fail.Play();
+            }
+            else if (Life0.activeSelf)
+            {
+                Life0.SetActive(false);
+                StartCoroutine("BallReset");
+                S_Fail.Play();
+            }
+            else
+            {
+                GameOverPanel.SetActive(true);
+                S_Fail.Play();
+                Clear();
+            }
+        }
+    }
+
+
+    void Clear()
+    {
+        PaddleSr.enabled = false;
+    }
+
 }
