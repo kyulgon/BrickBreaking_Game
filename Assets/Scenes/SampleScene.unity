@@ -30041,7 +30041,7 @@ MonoBehaviour:
   - {fileID: 1249195322}
   - {fileID: 631835203}
   - {fileID: 511822358}
-  PaddleSr: {fileID: 0}
+  PaddleSr: {fileID: 1884381767}
   PaddleCol: {fileID: 1884381766}
   Magnet: {fileID: 1481283049}
   Gun: {fileID: 1366855748}

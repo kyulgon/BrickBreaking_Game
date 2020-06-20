@@ -76,7 +76,10 @@ public class Paddle : MonoBehaviour
         BlockGenerator();
         StartCoroutine("BallReset");
 
-        // 점수 초기화
+        StageText.text = stage.ToString();
+        score = 0;
+        ScoreText.text = "0";
+
         PaddleSr.enabled = true;
         Life0.SetActive(true);
         Life1.SetActive(true);
@@ -191,7 +194,9 @@ public class Paddle : MonoBehaviour
     {
         // 아이템 생성
 
-        // 스코어 증가
+        // 스코어 증가, 콤보당 1점, 3콤도이상은 3점
+        score += (++combo > 3) ? 3 : combo;
+        ScoreText.text = score.ToString();
 
         // 벽돌 부서지는 애니메이션
         ColAni.SetTrigger("Break");
@@ -199,6 +204,8 @@ public class Paddle : MonoBehaviour
         StartCoroutine(ActiveFalse(Col));
 
         // 블럭 체크
+        StopCoroutine("BlockCheck");
+        StartCoroutine("BlockCheck");
     }
 
     IEnumerator ActiveFalse(GameObject Col)
@@ -235,9 +242,31 @@ public class Paddle : MonoBehaviour
         }
     }
 
+    IEnumerator BlockCheck()
+    {
+        yield return new WaitForSeconds(0.5f);
+        int blockCount = 0;
+        for (int i = 0; i < BlocksTr.childCount; i++)
+        {
+            if (BlocksTr.GetChild(i).gameObject.activeSelf) blockCount++;
+        }
+
+        // 승리
+        if(blockCount == 0)
+        {
+            WinPanel.SetActive(true);
+            S_Victory.Play();
+            Clear();
+        }
+    }
+
 
     void Clear()
     {
+        for (int i = 0; i < 3; i++)
+        {
+            Ball[i].SetActive(false);
+        }
         PaddleSr.enabled = false;
     }
 
