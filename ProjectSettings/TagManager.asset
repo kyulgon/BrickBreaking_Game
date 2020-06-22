@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ball
   - Odd
+  - TriggerBlock
   layers:
   - Default
   - TransparentFX
